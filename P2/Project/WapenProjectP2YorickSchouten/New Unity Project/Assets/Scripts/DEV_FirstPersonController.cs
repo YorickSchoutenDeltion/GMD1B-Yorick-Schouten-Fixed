@@ -11,6 +11,7 @@ public class DEV_FirstPersonController : MonoBehaviour {
     public float speed;
     public float mouseSens;
     public float groundRay;
+    public float throwerEmissionRate;
 
     private float hor;
     private float ver;
@@ -18,6 +19,7 @@ public class DEV_FirstPersonController : MonoBehaviour {
     private float mouseVer;
 
     public GameObject cam;
+    public Light flameLight;
 
     private Vector3 movement;
     private Vector3 playerRotate;
@@ -30,11 +32,62 @@ public class DEV_FirstPersonController : MonoBehaviour {
 
     public Rigidbody playerRigid;
 
+    public ParticleSystem flamethrower;
+
+    private CursorLockMode wantedMode;
+
+    void SetCursorState()
+    {
+        Cursor.lockState = wantedMode;
+        // Hide the cursor when looking
+        Cursor.visible = (CursorLockMode.Locked != wantedMode);
+    }
+
+    void OnGUI()
+    {
+        GUILayout.BeginVertical();
+        // Release cursor on escape keypress
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.None;
+        }
+
+        switch (Cursor.lockState)
+        {
+            case CursorLockMode.None:
+                GUILayout.Label("Cursor is normal");
+                if (GUILayout.Button("Lock cursor"))
+                    wantedMode = CursorLockMode.Locked;
+                if (GUILayout.Button("Confine cursor"))
+                    wantedMode = CursorLockMode.Confined;
+                break;
+            case CursorLockMode.Confined:
+                GUILayout.Label("Cursor is confined");
+                if (GUILayout.Button("Lock cursor"))
+                    wantedMode = CursorLockMode.Locked;
+                if (GUILayout.Button("Release cursor"))
+                    wantedMode = CursorLockMode.None;
+                break;
+            case CursorLockMode.Locked:
+                GUILayout.Label("Cursor is locked");
+                if (GUILayout.Button("Unlock cursor"))
+                    wantedMode = CursorLockMode.None;
+                if (GUILayout.Button("Confine cursor"))
+                    wantedMode = CursorLockMode.Confined;
+                break;
+        }
+
+        GUILayout.EndVertical();
+
+        SetCursorState();
+    }
+
     public void Update()
     {
         PlayerMove();
         CameraMove();
         Jump();
+        EnableFlamethrower();
     }
 
     void PlayerMove()
@@ -83,6 +136,21 @@ public class DEV_FirstPersonController : MonoBehaviour {
                     jumpsLeft -= 1;
                 }
             }
+        }
+    }
+
+    void EnableFlamethrower()
+    {
+        if (Input.GetButtonDown("Fire 1"))
+        {
+            flamethrower.Play();
+            flameLight.enabled = true;
+        }
+
+        if (Input.GetButtonUp("Fire 1"))
+        {
+            flamethrower.Stop();
+            flameLight.enabled = false;
         }
     }
 }
