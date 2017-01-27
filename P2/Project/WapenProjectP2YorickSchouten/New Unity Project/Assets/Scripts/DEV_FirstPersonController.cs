@@ -26,6 +26,7 @@ public class DEV_FirstPersonController : MonoBehaviour {
     public Vector3 jumpForce;
 
     private bool grounded;
+    private bool mouseLocked;
 
     public Rigidbody playerRigid;
 
