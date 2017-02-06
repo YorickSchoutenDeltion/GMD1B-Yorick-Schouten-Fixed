@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 81f34d446e987dd4283521f576ad5c6f
+timeCreated: 1485780819
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: KaraBenNemsi
+  fontNames:
+  - KaraBenNemsi
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
