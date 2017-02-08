@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Animation.unity
+- path: Assets/Tetris/Scenes/MainScene.unity
   isLoaded: 1
   isActive: 1

@@ -33,18 +33,20 @@ public class TetrisManager : MonoBehaviour {
     void CubeDropDown()
     {
         dropdownTimer -= Time.deltaTime;
-        if(dropdownTimer < 0)
+        if (FitsInRange(actGrid[-4]))
         {
-            for (int i = 0; i < gridSquares - 1; i++)
+            if (dropdownTimer < 0)
             {
-                if(actGrid[i] != null)
+                for (int i = 0; i < gridSquares - 1; i++)
                 {
-                    
-                }
-            }
-            dropdownTimer = dropdownMaxTimer;
-        }
+                    if (actGrid[i] != null)
+                    {
 
+                    }
+                }
+                dropdownTimer = dropdownMaxTimer;
+            }
+        }
        if (Input.GetButtonDown("Jump"))
         {
             actGrid[38] = ((GameObject)Instantiate(actPrefab, (gridList[38].transform.position) + new Vector3(0, 0, 1), Quaternion.identity));
@@ -71,12 +73,13 @@ public class TetrisManager : MonoBehaviour {
 
     bool FitsInRange(int i)
     {
-        if(((i - maxGridWidth) > -1) && (i != gridSquares+1))
+        if(((i - maxGridWidth) > -1) && (i < gridList.Count))
         {
-
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
-actGrid[i].transform.position -= new Vector3(0, 1, 0);
-actGrid[i - maxGridWidth] = actGrid[i];
-                    actGrid[i] = null;
