@@ -1,1 +1,4 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/Geometry Wars Assets/Scenes 1/TestLevel.unity
+  isLoaded: 1
+  isActive: 1
